@@ -10,6 +10,9 @@
 		180974E420EB370C0091E356 /* TabPageView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 180974DA20EB370C0091E356 /* TabPageView.framework */; };
 		180974E920EB370C0091E356 /* TabPageViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180974E820EB370C0091E356 /* TabPageViewTests.swift */; };
 		180974EB20EB370C0091E356 /* TabPageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 180974DD20EB370C0091E356 /* TabPageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		18EC477E20EB37A600F06C33 /* PageContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EC477B20EB37A600F06C33 /* PageContentView.swift */; };
+		18EC477F20EB37A600F06C33 /* TabTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EC477C20EB37A600F06C33 /* TabTitleView.swift */; };
+		18EC478020EB37A600F06C33 /* TabPageViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EC477D20EB37A600F06C33 /* TabPageViewerController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +32,9 @@
 		180974E320EB370C0091E356 /* TabPageViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TabPageViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		180974E820EB370C0091E356 /* TabPageViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabPageViewTests.swift; sourceTree = "<group>"; };
 		180974EA20EB370C0091E356 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		18EC477B20EB37A600F06C33 /* PageContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageContentView.swift; sourceTree = "<group>"; };
+		18EC477C20EB37A600F06C33 /* TabTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabTitleView.swift; sourceTree = "<group>"; };
+		18EC477D20EB37A600F06C33 /* TabPageViewerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabPageViewerController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +77,9 @@
 		180974DC20EB370C0091E356 /* TabPageView */ = {
 			isa = PBXGroup;
 			children = (
+				18EC477D20EB37A600F06C33 /* TabPageViewerController.swift */,
+				18EC477C20EB37A600F06C33 /* TabTitleView.swift */,
+				18EC477B20EB37A600F06C33 /* PageContentView.swift */,
 				180974DD20EB370C0091E356 /* TabPageView.h */,
 				180974DE20EB370C0091E356 /* Info.plist */,
 			);
@@ -148,6 +157,7 @@
 				TargetAttributes = {
 					180974D920EB370C0091E356 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 					180974E220EB370C0091E356 = {
@@ -196,6 +206,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18EC477E20EB37A600F06C33 /* PageContentView.swift in Sources */,
+				18EC478020EB37A600F06C33 /* TabPageViewerController.swift in Sources */,
+				18EC477F20EB37A600F06C33 /* TabTitleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,7 +280,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -321,7 +334,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -334,6 +347,7 @@
 		180974EF20EB370C0091E356 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -347,6 +361,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = cn.mister.TabPageView;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -355,6 +370,7 @@
 		180974F020EB370C0091E356 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -376,6 +392,7 @@
 		180974F220EB370C0091E356 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N8XT597826;
 				INFOPLIST_FILE = TabPageViewTests/Info.plist;
@@ -390,6 +407,7 @@
 		180974F320EB370C0091E356 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N8XT597826;
 				INFOPLIST_FILE = TabPageViewTests/Info.plist;
