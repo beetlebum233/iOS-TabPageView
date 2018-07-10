@@ -20,12 +20,17 @@ class PageContentView: UIView, UICollectionViewDataSource, UICollectionViewDeleg
     
     private var currentIndex : Int = 0
     
-    private var callback : ((_ index: Int) ->())?
+    private var callback : ((_ offset: CGFloat) ->())?
     
     private var pageViewList: [UIView]?
     
-    convenience init(frame: CGRect, pageViewList: [UIView], callback: @escaping (_ index: Int) ->()){
+    private var conf: PageViewConfiguration?
+    
+    private var doCallbackInvock: Bool = true
+    
+    convenience init(frame: CGRect, pageViewList: [UIView], conf: PageViewConfiguration, callback: @escaping (_ offset: CGFloat) ->()){
         self.init(frame: frame)
+        self.conf = conf
         self.callback = callback
         self.pageViewList = pageViewList
         let collectionLayout = UICollectionViewFlowLayout.init()
@@ -40,6 +45,8 @@ class PageContentView: UIView, UICollectionViewDataSource, UICollectionViewDeleg
         collectionView?.dataSource = self
         collectionView?.delegate = self
         collectionView?.bounces = false
+        collectionView?.showsHorizontalScrollIndicator = false
+        collectionView?.showsVerticalScrollIndicator = false
         if pageViewList.count > 0{
             for index in 0...pageViewList.count{
                 collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "test\(index)")
@@ -68,31 +75,48 @@ class PageContentView: UIView, UICollectionViewDataSource, UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "test\(indexPath.row)", for: indexPath)
         
-        let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height))
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.bounces = false
-        let view = pageViewList![indexPath.row]
-        scrollView.addSubview(view)
-        scrollView.contentSize = CGSize(width: view.bounds.width, height: view.bounds.height)
+        if let needScrollView = conf?.needScrollView, needScrollView {
+            let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height))
+            scrollView.showsHorizontalScrollIndicator = false
+            scrollView.showsVerticalScrollIndicator = false
+            scrollView.bounces = false
+            let view = pageViewList![indexPath.row]
+            scrollView.addSubview(view)
+            scrollView.contentSize = CGSize(width: view.bounds.width, height: view.bounds.height)
+            
+            cell.contentView.addSubview(scrollView)
+        }else{
+            cell.contentView.addSubview(pageViewList![indexPath.row])
+        }
         
-        cell.contentView.addSubview(scrollView)
+        
         
         return cell
     }
     
     // MARK: delegate
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let newIndex = Int((collectionView!.contentOffset.x + self.frame.width / 2) / self.frame.width)
-        if newIndex != currentIndex{
-            callback!(newIndex)
-            currentIndex = newIndex
+        if collectionView!.contentOffset.x == 0{
+            callback?(0)
+        }else if doCallbackInvock{
+            let offsetRatio = collectionView!.contentOffset.x / self.frame.width
+            callback?(offsetRatio)
         }
+//        let newIndex = Int(offset)
+//        if newIndex != currentIndex{
+//            callback!(newIndex)
+//            currentIndex = newIndex
+//        }
+    }
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        doCallbackInvock = true
     }
     
     // MARK: methods
-    func setOffset(index: Int){
+    func setPage(index: Int){
         let point = CGPoint(x: CGFloat(index) * collectionView!.frame.size.width, y:collectionView!.frame.origin.y)
+        doCallbackInvock = false
         collectionView?.setContentOffset(point, animated: true)
         currentIndex = index
     }

@@ -10,9 +10,11 @@
 		180974E420EB370C0091E356 /* TabPageView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 180974DA20EB370C0091E356 /* TabPageView.framework */; };
 		180974E920EB370C0091E356 /* TabPageViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180974E820EB370C0091E356 /* TabPageViewTests.swift */; };
 		180974EB20EB370C0091E356 /* TabPageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 180974DD20EB370C0091E356 /* TabPageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		182C3C2020F4591E00F1BA0A /* TabTitleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182C3C1F20F4591E00F1BA0A /* TabTitleModel.swift */; };
+		182C3C2220F4A33300F1BA0A /* TabPageViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182C3C2120F4A33300F1BA0A /* TabPageViewConfiguration.swift */; };
 		18EC477E20EB37A600F06C33 /* PageContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EC477B20EB37A600F06C33 /* PageContentView.swift */; };
 		18EC477F20EB37A600F06C33 /* TabTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EC477C20EB37A600F06C33 /* TabTitleView.swift */; };
-		18EC478020EB37A600F06C33 /* TabPageViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EC477D20EB37A600F06C33 /* TabPageViewerController.swift */; };
+		18EC478020EB37A600F06C33 /* TabPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EC477D20EB37A600F06C33 /* TabPageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,9 +34,11 @@
 		180974E320EB370C0091E356 /* TabPageViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TabPageViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		180974E820EB370C0091E356 /* TabPageViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabPageViewTests.swift; sourceTree = "<group>"; };
 		180974EA20EB370C0091E356 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		182C3C1F20F4591E00F1BA0A /* TabTitleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabTitleModel.swift; sourceTree = "<group>"; };
+		182C3C2120F4A33300F1BA0A /* TabPageViewConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabPageViewConfiguration.swift; sourceTree = "<group>"; };
 		18EC477B20EB37A600F06C33 /* PageContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageContentView.swift; sourceTree = "<group>"; };
 		18EC477C20EB37A600F06C33 /* TabTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabTitleView.swift; sourceTree = "<group>"; };
-		18EC477D20EB37A600F06C33 /* TabPageViewerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabPageViewerController.swift; sourceTree = "<group>"; };
+		18EC477D20EB37A600F06C33 /* TabPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabPageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,9 +81,11 @@
 		180974DC20EB370C0091E356 /* TabPageView */ = {
 			isa = PBXGroup;
 			children = (
-				18EC477D20EB37A600F06C33 /* TabPageViewerController.swift */,
+				18EC477D20EB37A600F06C33 /* TabPageViewController.swift */,
+				182C3C2120F4A33300F1BA0A /* TabPageViewConfiguration.swift */,
 				18EC477C20EB37A600F06C33 /* TabTitleView.swift */,
 				18EC477B20EB37A600F06C33 /* PageContentView.swift */,
+				182C3C1F20F4591E00F1BA0A /* TabTitleModel.swift */,
 				180974DD20EB370C0091E356 /* TabPageView.h */,
 				180974DE20EB370C0091E356 /* Info.plist */,
 			);
@@ -206,8 +212,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				182C3C2020F4591E00F1BA0A /* TabTitleModel.swift in Sources */,
+				182C3C2220F4A33300F1BA0A /* TabPageViewConfiguration.swift in Sources */,
 				18EC477E20EB37A600F06C33 /* PageContentView.swift in Sources */,
-				18EC478020EB37A600F06C33 /* TabPageViewerController.swift in Sources */,
+				18EC478020EB37A600F06C33 /* TabPageViewController.swift in Sources */,
 				18EC477F20EB37A600F06C33 /* TabTitleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -23,7 +23,7 @@ class TabTitleView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
     
     private var scrollBar: UIView?
     
-    private var titleArr : [String]?
+    private var titleList : [TabTitleModel]?
     
     private var titleViewList: [UIView]?
     
@@ -31,15 +31,29 @@ class TabTitleView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
     
     private var currentIndex : Int = 0
     
-    convenience init(frame: CGRect, titleArr: [String], callback: @escaping (_ index: Int) ->()){
+    private var conf : TabTitleConfiguration?
+    
+    convenience init(frame: CGRect, titleList: [TabTitleModel], conf: TabTitleConfiguration, callback: @escaping (_ index: Int) ->()){
         self.init(frame: frame)
+        self.conf = conf
         self.callback = callback
-        self.titleArr = titleArr
-        for index in 0...titleArr.count - 1 {
-            let view = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: frame.height - 3))
+        self.titleList = titleList
+        for index in 0...titleList.count - 1 {
+            let view = UIView()
+            let imageView = UIImageView(image: titleList[index].image)
+            let imageWidth = frame.height - 3
+            let labelView = UILabel(frame: CGRect(x: imageWidth, y: 0, width: 100, height: imageWidth))
+            imageView.layer.masksToBounds = true
+            imageView.frame = CGRect(x: 0, y: 0, width: imageWidth, height: imageWidth)
+                        
+            labelView.text = titleList[index].titleName
+            labelView.textColor = conf.textColor
+            labelView.sizeToFit()
+            view.addSubview(imageView)
+            view.addSubview(labelView)
             
-            view.text = titleArr[index]
-            view.sizeToFit()
+            view.frame = CGRect(x: 0, y: 0, width: imageWidth + labelView.frame.width, height: imageWidth)
+            view.backgroundColor = conf.titleBackgroundColor
             if titleViewList == nil{
                 titleViewList = Array()
             }
@@ -47,9 +61,10 @@ class TabTitleView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
         }
         if let firstTitleView = titleViewList?[0]{
             scrollBar = UIView(frame: CGRect(x: 0, y: frame.height - 3, width: firstTitleView.frame.width, height: 3))
-            scrollBar?.backgroundColor = UIColor.blue
+            scrollBar?.backgroundColor = conf.baseLineColor
             addSubview(scrollBar!)
         }
+        collectionView?.backgroundColor = conf.titleBackgroundColor
         
     }
     
@@ -58,7 +73,6 @@ class TabTitleView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
         collectionLayout = UICollectionViewFlowLayout.init()
         collectionLayout!.scrollDirection = UICollectionViewScrollDirection.horizontal
         collectionView = UICollectionView.init(frame: frame, collectionViewLayout: collectionLayout!)
-        collectionView?.backgroundColor = UIColor.white
         collectionView?.isScrollEnabled = true
         addSubview(collectionView!)
         collectionView?.delegate = self
@@ -74,7 +88,7 @@ class TabTitleView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
     
     // MARK: dataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let count = titleArr?.count {
+        if let count = titleList?.count {
             return count
         }else{
             return 0
@@ -100,7 +114,32 @@ class TabTitleView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
     }
     
     // MARK: methods
-    func setOffset(index: Int){
+    func setOffset(offsetRatio: CGFloat){
+        var offsetX = CGFloat()
+        offsetX = 0
+        let index = Int(offsetRatio)
+        if index > 0{
+            for i in 0...index - 1{
+                offsetX += titleViewList![i].bounds.width
+                offsetX += collectionLayout!.minimumInteritemSpacing
+            }
+        }
+        offsetX += (titleViewList![index].bounds.width + collectionLayout!.minimumInteritemSpacing) * (offsetRatio - CGFloat(index))
+        UIView.animate(withDuration: 0.0, animations: {
+            var width: CGFloat
+            if index < self.titleViewList!.count - 1{
+                width = self.titleViewList![index].frame.width + (self.titleViewList![index + 1].frame.width - self.titleViewList![index].frame.width) * (offsetRatio - CGFloat(index))
+            }else{
+                width = self.titleViewList![index].frame.width
+            }
+            
+            self.scrollBar!.frame = CGRect(x:offsetX, y:self.scrollBar!.frame.origin.y, width: width, height:self.scrollBar!.frame.height)
+            
+        })
+        currentIndex = index
+    }
+    
+    func setIndex(index: Int){
         var offsetX = CGFloat()
         offsetX = 0
         if let viewList = titleViewList, index > 0{
@@ -109,7 +148,7 @@ class TabTitleView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
                 offsetX += collectionLayout!.minimumInteritemSpacing
             }
         }
-        UIView.animate(withDuration: 0.5, animations: {
+        UIView.animate(withDuration: 0.3, animations: {
             
             self.scrollBar!.frame = CGRect(x:offsetX, y:self.scrollBar!.frame.origin.y, width:self.titleViewList![index].frame.width, height:self.scrollBar!.frame.height)
             
@@ -119,7 +158,7 @@ class TabTitleView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if currentIndex != indexPath.row {
-            setOffset(index: indexPath.row)
+            setIndex(index: indexPath.row)
             callback!(indexPath.row)
             currentIndex = indexPath.row
         }

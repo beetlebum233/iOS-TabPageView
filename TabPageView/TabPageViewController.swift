@@ -30,7 +30,11 @@ open class TabPageViewController: UIViewController, UICollectionViewDelegate {
     }
     
     // MARK: methods
-    public func initView(titleList: [String], controllers: [UIViewController], contentView: UIView){
+    public func initView(titleList: [TabTitleModel], controllers: [UIViewController], contentView: UIView){
+        self.initView(titleList: titleList, controllers: controllers, contentView: contentView, configuration: TabPageViewConfiguration())
+    }
+    
+    public func initView(titleList: [TabTitleModel], controllers: [UIViewController], contentView: UIView, configuration: TabPageViewConfiguration){
         var pageViewList = Array<UIView>()
         if controllers.count > 0 {
             for controller in controllers{
@@ -39,20 +43,19 @@ open class TabPageViewController: UIViewController, UICollectionViewDelegate {
                 controllerList.append(controller)
             }
         }
-        tabTitleView = TabTitleView(frame: CGRect(x: 0, y: 0, width: contentView.frame.width, height: CGFloat(50)), titleArr:
-            titleList, callback:{
+        tabTitleView = TabTitleView(frame: CGRect(x: 0, y: 0, width: contentView.frame.width, height: configuration.titleHeight), titleList:
+            titleList, conf: configuration.tabTitleConf, callback:{
                 (index) in
-                self.pageContentView?.setOffset(index: index)
+                self.pageContentView?.setPage(index: index)
         })
         contentView.addSubview(tabTitleView!)
-        pageContentView = PageContentView(frame: CGRect(x: 0, y: 50, width: contentView.frame.width, height: contentView.frame.height - CGFloat(50)), pageViewList: pageViewList, callback:{
-            (index) in
-            self.tabTitleView?.setOffset(index: index)
+        pageContentView = PageContentView(frame: CGRect(x: 0, y: configuration.titleHeight, width: contentView.frame.width, height: contentView.frame.height - configuration.titleHeight), pageViewList: pageViewList, conf: configuration.pageViewConf, callback:{
+            (offset) in
+            self.tabTitleView?.setOffset(offsetRatio: offset)
         })
         contentView.addSubview(pageContentView!)
-        
     }
-
-
 }
+
+
 
