@@ -41,7 +41,12 @@ class TabTitleView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
         for index in 0...titleList.count - 1 {
             let view = UIView()
             let imageView = UIImageView(image: titleList[index].image)
-            let imageWidth = frame.height - 3
+            var imageWidth: CGFloat
+            if conf.iconWidth != nil{
+                imageWidth = conf.iconWidth!
+            }else{
+                imageWidth = frame.height - 3
+            }
             let labelView = UILabel(frame: CGRect(x: imageWidth, y: 0, width: 100, height: imageWidth))
             imageView.layer.masksToBounds = true
             imageView.frame = CGRect(x: 0, y: 0, width: imageWidth, height: imageWidth)
@@ -49,6 +54,8 @@ class TabTitleView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
             labelView.text = titleList[index].titleName
             labelView.textColor = conf.textColor
             labelView.sizeToFit()
+            labelView.frame = CGRect(origin: labelView.frame.origin, size: CGSize(width: labelView.frame.width, height: imageWidth))
+            labelView.textAlignment = NSTextAlignment.center
             view.addSubview(imageView)
             view.addSubview(labelView)
             

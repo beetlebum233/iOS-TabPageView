@@ -82,9 +82,9 @@
 			isa = PBXGroup;
 			children = (
 				18EC477D20EB37A600F06C33 /* TabPageViewController.swift */,
-				182C3C2120F4A33300F1BA0A /* TabPageViewConfiguration.swift */,
 				18EC477C20EB37A600F06C33 /* TabTitleView.swift */,
 				18EC477B20EB37A600F06C33 /* PageContentView.swift */,
+				182C3C2120F4A33300F1BA0A /* TabPageViewConfiguration.swift */,
 				182C3C1F20F4591E00F1BA0A /* TabTitleModel.swift */,
 				180974DD20EB370C0091E356 /* TabPageView.h */,
 				180974DE20EB370C0091E356 /* Info.plist */,

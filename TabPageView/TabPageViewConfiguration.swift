@@ -30,6 +30,7 @@ public struct TabTitleConfiguration{
     public var baseLineColor: UIColor = UIColor.blue
     public var titleBackgroundColor: UIColor = UIColor.white
     public var textColor: UIColor = UIColor.black
+    public var iconWidth: CGFloat? = nil
     
     init(){
         
